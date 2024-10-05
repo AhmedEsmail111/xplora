@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:xplora/core/utils/colors.dart';
-import 'package:xplora/core/utils/my_consonants.dart';
 import 'package:xplora/core/utils/text_styles.dart';
 import 'package:xplora/features/explore/domain/entities/planet.dart';
-import 'package:xplora/features/explore/presentation/views/widgets/details/info_list_tile.dart';
+import 'package:xplora/features/explore/presentation/views/widgets/details/info_card.dart';
 
 class DraggableContainer extends StatelessWidget {
   final Planet planet;
   const DraggableContainer({super.key, required this.planet});
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return DraggableScrollableSheet(
       initialChildSize: 0.6,
       maxChildSize: 0.9,
@@ -50,36 +52,29 @@ class DraggableContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      planet.name,
-                      style: style22,
-                    ),
-                    SizedBox(
-                      height: 45.h,
-                      child: ElevatedButton.icon(
-                        style: ElevatedButton.styleFrom(
-                            backgroundColor: secondaryColor.withOpacity(0.7),
-                            foregroundColor: Colors.white,
-                            shape: roundedBorder8Radius),
-                        onPressed: () {},
-                        label: Text(
-                          'Universe Mode',
-                          style: style15Bold,
-                        ),
-                      ),
-                    )
-                  ],
+                Align(
+                  alignment: Alignment.topLeft,
+                  child: Text(
+                    planet.name,
+                    style: style22,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.left,
+                    textDirection: TextDirection.ltr,
+                    maxLines: 1,
+                  ),
                 ),
                 SizedBox(
-                  height: 12.h,
+                  height: 8.h,
+                ),
+                const Divider(),
+                SizedBox(
+                  height: 8.h,
                 ),
                 Text(
-                  'Description',
+                  locale.description,
                   style: style18ExtraBold,
                 ),
+
                 SizedBox(
                   height: 8.h,
                 ),
@@ -95,15 +90,19 @@ class DraggableContainer extends StatelessWidget {
                 SizedBox(
                   height: 24.h,
                 ),
-                const InfoListTile(),
-                SizedBox(
-                  height: 12.h,
+                // const InfoListTile(
+                //   title: 'Introduction',
+                //   subtitle: '',
+                // ),
+                // SizedBox(
+                //   height: 12.h,
+                // ),
+                InfoCard(
+                  title: "${locale.facts_about} ${planet.name}",
+                  subtitle: '',
+                  planet: planet,
                 ),
-                const InfoListTile(),
-                SizedBox(
-                  height: 12.h,
-                ),
-                const InfoListTile(),
+
                 SizedBox(
                   height: 12.h,
                 ),

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:xplora/features/explore/domain/entities/galaxy.dart';
 import 'package:xplora/features/explore/domain/entities/planet.dart';
 import 'package:xplora/features/explore/presentation/views/galaxies_view.dart';
 import 'package:xplora/features/explore/presentation/views/planet_details_view.dart';
@@ -105,9 +104,7 @@ abstract class AppRouter {
           key: state.pageKey,
           transitionDuration: fadingAnimationDuration,
           reverseTransitionDuration: fadingAnimationDuration,
-          child: PlanetsView(
-            galaxy: state.extra as Galaxy,
-          ),
+          child: const PlanetsView(),
           transitionsBuilder: (context, animation, secondaryAnimation, child) =>
               FadeTransition(
             opacity: animation,

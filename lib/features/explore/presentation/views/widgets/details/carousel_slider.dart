@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:xplora/core/utils/assets.dart';
 import 'package:xplora/features/explore/presentation/views/widgets/planet_item.dart';
 
 class CustomCarouselSlider extends StatelessWidget {
@@ -33,13 +32,13 @@ class CustomCarouselSlider extends StatelessWidget {
           child: Custom3dPreview(
             width: (width - 50),
             height: (height - 50),
-            image: planet3dImage,
+            image: images[index],
           ),
         );
       },
       options: CarouselOptions(
         height: height,
-        autoPlay: true,
+        autoPlay: false,
         autoPlayInterval: const Duration(seconds: 5),
         autoPlayAnimationDuration: const Duration(seconds: 1),
         viewportFraction: viewPort,

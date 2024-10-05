@@ -13,23 +13,12 @@ class SplashViewBody extends StatefulWidget {
   State<SplashViewBody> createState() => _SplashViewBodyState();
 }
 
-class _SplashViewBodyState extends State<SplashViewBody>
-// with SingleTickerProviderStateMixin
-{
-  // late final AnimationController animationController;
-  // late final Animation<Offset> slidingAnimation;
+class _SplashViewBodyState extends State<SplashViewBody> {
   @override
   void initState() {
     super.initState();
     _navigateToHome();
   }
-
-  // @override
-  // void dispose() {
-  //   super.dispose();
-
-  //   animationController.dispose();
-  // }
 
   @override
   Widget build(BuildContext context) {

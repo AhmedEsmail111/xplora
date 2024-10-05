@@ -24,7 +24,7 @@ class OnBoardingView extends StatelessWidget {
             child: Text(
               'SKIP',
               style: style18ExtraBold.copyWith(
-                color: secondaryColor,
+                color: brightestColor,
               ),
             ),
           )

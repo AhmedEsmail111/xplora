@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:locator/locator.dart';
+import 'package:xplora/core/utils/colors.dart';
+import 'package:xplora/core/utils/my_consonants.dart';
 import 'package:xplora/core/utils/router.dart';
-import 'package:xplora/core/utils/services/shared_preferences.dart';
+import 'package:xplora/core/utils/text_styles.dart';
 import 'package:xplora/core/widgets/custon_back_icon.dart';
+import 'package:xplora/features/settings/presentation/manager/language/language_cubit.dart';
 
-import '../../../../core/utils/my_consonants.dart';
 import 'widgets/galaxies_view_body.dart';
 
 class GalaxiesView extends StatelessWidget {
@@ -14,14 +15,51 @@ class GalaxiesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final String savedName =
-        const Locator().get<CacheService>().getData(key: userName);
     return Scaffold(
       appBar: AppBar(
-        title: Text('The Universe is Yours, $savedName'),
         leadingWidth: 40.w,
         leading: const CustomBackIcon(),
         actions: [
+          ElevatedButton.icon(
+            style: TextButton.styleFrom(
+              shape: roundedBorder8Radius,
+              foregroundColor: Colors.white,
+              backgroundColor: lighterDarkColor,
+            ),
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text(
+                    LanguageCubit.of(context).locale.languageCode == 'en'
+                        ? 'Coming soon'
+                        : 'قريبا',
+                    style: style14Bold.copyWith(
+                      color: Colors.white,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  backgroundColor: secondaryColor,
+                  behavior: SnackBarBehavior.floating,
+                  margin: EdgeInsets.only(
+                    bottom: 100.h,
+                    right: 24.w,
+                    left: 24.w,
+                  ),
+                  duration: const Duration(milliseconds: 2500),
+                ),
+              );
+            },
+            icon: const Icon(
+              Icons.view_in_ar,
+            ),
+            label: Text(
+              'VR Mode',
+              style: style14Bold,
+            ),
+          ),
+          SizedBox(
+            width: 8.w,
+          ),
           IconButton(
             iconSize: 25.w,
             onPressed: () {
@@ -30,7 +68,7 @@ class GalaxiesView extends StatelessWidget {
             icon: const Icon(
               Icons.manage_accounts,
             ),
-          )
+          ),
         ],
       ),
       body: const GalaxiesViewBody(),

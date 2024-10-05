@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../../../core/utils/text_styles.dart';
 import '../../../domain/entities/boarding_page_entity.dart';
@@ -30,14 +31,17 @@ class PageViewWidget extends StatelessWidget {
             pageData.secondLineDescription!,
             style: style18,
           ),
-        const SizedBox(
-          height: 32,
+        SizedBox(
+          height: 16.h,
         ),
         Flexible(
-          child: Image.asset(
-            pageData.imageAsset,
-            fit: BoxFit.cover,
-            width: double.infinity,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(24),
+            child: Image.asset(
+              pageData.imageAsset,
+              fit: BoxFit.cover,
+              width: double.infinity,
+            ),
           ),
         )
       ],

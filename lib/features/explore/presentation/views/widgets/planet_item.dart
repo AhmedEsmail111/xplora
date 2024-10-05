@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:xplora/core/utils/assets.dart';
 import 'package:xplora/core/utils/router.dart';
+import 'package:xplora/features/settings/presentation/manager/language/language_cubit.dart';
+import 'package:xplora/features/settings/presentation/manager/language/language_states.dart';
 
 import '../../../../../core/utils/text_styles.dart';
 import '../../../domain/entities/planet.dart';
 
 class PlanetItem extends StatefulWidget {
-  const PlanetItem({super.key, required this.planet});
+  const PlanetItem({super.key, required this.planet, required this.index});
   final Planet planet;
+  final int index;
 
   @override
   State<PlanetItem> createState() => _PlanetItemState();
@@ -35,7 +38,7 @@ class _PlanetItemState extends State<PlanetItem> {
         );
       },
       child: Material(
-        color: Theme.of(context).cardColor.withOpacity(0.9),
+        color: Theme.of(context).cardColor.withOpacity(0.7),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(25),
         ),
@@ -45,40 +48,68 @@ class _PlanetItemState extends State<PlanetItem> {
             left: 16.w,
             bottom: 16.w,
           ),
-          height: 120.w,
-          width: 120.w,
           child: Stack(
             clipBehavior: Clip.none,
             children: [
-              Positioned.directional(
-                end: -20.w,
-                top: -20.w,
-                textDirection: TextDirection.ltr,
-                child: Image.asset(
-                  planetImage,
-                  height: 80.w,
-                  width: 80.w,
-                ),
+              BlocBuilder<LanguageCubit, LanguageStates>(
+                builder: (context, state) {
+                  return Positioned.directional(
+                    end: 2,
+                    start: 2,
+                    top: widget.index == 1 ||
+                            widget.index == 6 ||
+                            widget.index == 8
+                        ? -20
+                        : -50.w,
+                    textDirection:
+                        LanguageCubit.of(context).locale.languageCode == 'en'
+                            ? TextDirection.ltr
+                            : TextDirection.rtl,
+                    child: Image.asset(
+                      widget.planet.imageNormal,
+                      height: widget.index == 1 ||
+                              widget.index == 8 ||
+                              widget.index == 6
+                          ? 100.w
+                          : 180.w,
+                      width: widget.index == 1 ||
+                              widget.index == 8 ||
+                              widget.index == 6
+                          ? 150.w
+                          : 150.w,
+                    ),
+                  );
+                },
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    widget.planet.name,
-                    style: style17,
-                  ),
-                  SizedBox(
-                    height: 4.h,
-                  ),
-                  Text(
-                    widget.planet.description,
-                    softWrap: true,
-                    maxLines: 3,
-                    overflow: TextOverflow.ellipsis,
-                    style: style14Regular,
-                  ),
-                ],
+              Padding(
+                padding: EdgeInsets.only(top: 20.h),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.topLeft,
+                      child: Text(
+                        widget.planet.name,
+                        style: style16,
+                        overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.left,
+                        textDirection: TextDirection.ltr,
+                        maxLines: 1,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 4.h,
+                    ),
+                    Text(
+                      widget.planet.description,
+                      softWrap: true,
+                      maxLines: 3,
+                      overflow: TextOverflow.ellipsis,
+                      style: style14Regular,
+                    ),
+                  ],
+                ),
               )
             ],
           ),

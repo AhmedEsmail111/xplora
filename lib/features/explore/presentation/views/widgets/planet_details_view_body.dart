@@ -5,7 +5,6 @@ import 'package:xplora/features/explore/domain/entities/planet.dart';
 
 import 'details/arrow_back.dart';
 import 'details/carousel_slider.dart';
-import 'details/custom_indicator.dart';
 import 'details/draggable_container.dart';
 
 class PlanetDetailsViewBody extends StatefulWidget {
@@ -33,7 +32,7 @@ class _PlanetDetailsViewBodyState extends State<PlanetDetailsViewBody> {
       child: Stack(
         children: [
           CustomCarouselSlider(
-            images: widget.planet.images,
+            images: [widget.planet.image3d],
             controller: _sliderController,
             onPageChanged: (index, _) {
               sliderIndex = index;
@@ -43,18 +42,18 @@ class _PlanetDetailsViewBodyState extends State<PlanetDetailsViewBody> {
             width: MediaQuery.of(context).size.width,
             viewPort: 1.0,
           ),
-          Positioned(
-            width: MediaQuery.of(context).size.width,
-            top: 275,
-            child: Center(
-              child: CustomIndicator(
-                numberOfIndicators: widget.planet.images,
-                controller: _sliderController,
-                sliderIndex: sliderIndex,
-                smoothColor: 0.6,
-              ),
-            ),
-          ),
+          // Positioned(
+          //   width: MediaQuery.of(context).size.width,
+          //   top: 275,
+          //   child: Center(
+          //     child: CustomIndicator(
+          //       numberOfIndicators: widget.planet.images,
+          //       controller: _sliderController,
+          //       sliderIndex: sliderIndex,
+          //       smoothColor: 0.6,
+          //     ),
+          //   ),
+          // ),
           const ArrowBack(),
           DraggableContainer(
             planet: widget.planet,

@@ -1,113 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:xplora/core/utils/assets.dart';
+import 'package:xplora/core/utils/colors.dart';
 import 'package:xplora/core/utils/router.dart';
 
-import '../../../../../core/utils/colors.dart';
 import '../../../../../core/utils/text_styles.dart';
-import '../../../domain/entities/galaxy.dart';
 
 class GalaxyItem extends StatelessWidget {
-  const GalaxyItem({super.key, required this.galaxy});
-  final Galaxy galaxy;
+  const GalaxyItem({super.key});
+
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return GestureDetector(
       onTap: () {
         GoRouter.of(context).push(
           AppRouter.planetsView,
-          extra: galaxy,
         );
       },
-      child: Material(
-        elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(25),
+      child: Container(
+        margin: EdgeInsets.only(
+          top: 10.h,
         ),
-        color: primaryColor,
-        child: Container(
-          margin: EdgeInsets.only(
-            top: 55.h,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(
+            25,
           ),
-          height: 210.w,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(
-              25,
-            ),
-            color: Theme.of(context).cardColor,
+          color: lighterDarkColor.withOpacity(0.8),
+        ),
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: 16.w,
+            right: 16.w,
+            bottom: 20.h,
+            top: 20.h,
           ),
-          child: Padding(
-            padding: EdgeInsets.only(left: 16.w, right: 16.w, bottom: 20.h),
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Positioned(
-                  top: -75.w,
-                  left: 2,
-                  right: 2,
-                  child: SizedBox(
-                    width: 200.w,
-                    height: 200.w,
-                    child: Image.asset(
-                      galaxyImage,
-                    ),
-                  ),
-                ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      galaxy.name,
-                      style: style17,
-                    ),
-                    SizedBox(
-                      height: 4.h,
-                    ),
-                    Text(
-                      galaxy.description,
-                      softWrap: true,
-                      maxLines: 3,
-                      overflow: TextOverflow.ellipsis,
-                      style: style15Regular,
-                    ),
-                    SizedBox(
-                      height: 6.h,
-                    ),
-                    Row(
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            text: 'Planets: ',
-                            style: style13,
-                            children: [
-                              TextSpan(
-                                text: '${galaxy.numberOfPlanets} 🌏',
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(
-                          width: 16.w,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                            text: 'Stars: ',
-                            style: style13,
-                            children: [
-                              TextSpan(
-                                text: '${galaxy.numberOfStars} ⭐',
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ],
-            ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                locale.milk_galaxy,
+                style: style17,
+              ),
+              SizedBox(
+                height: 6.h,
+              ),
+              Text(
+                locale.milk_galaxy_info1,
+                softWrap: true,
+                overflow: TextOverflow.visible,
+                style: style14Regular,
+              ),
+            ],
           ),
         ),
       ),

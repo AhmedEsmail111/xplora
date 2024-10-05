@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:xplora/core/utils/router.dart';
@@ -20,13 +21,11 @@ class SetupUserViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => SliderCubit(),
-        ),
-        BlocProvider(
-          create: (context) => LanguageCubit(),
         ),
         BlocProvider(
           create: (context) => UserNameCubit(),
@@ -43,21 +42,21 @@ class SetupUserViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Welcome to xplora',
+                  '${locale.welcome} xplora',
                   style: style20ExtraBold,
                 ),
                 SizedBox(
                   height: 4.h,
                 ),
                 Text(
-                  'We need some info before you start your journey 🪐',
+                  locale.need_info,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
                   height: 24.h,
                 ),
                 Text(
-                  'Name',
+                  locale.name,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
@@ -80,7 +79,7 @@ class SetupUserViewBody extends StatelessWidget {
                   height: 16.h,
                 ),
                 Text(
-                  'Age',
+                  locale.age,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
@@ -91,7 +90,7 @@ class SetupUserViewBody extends StatelessWidget {
                   height: 16.h,
                 ),
                 Text(
-                  'Your Preferred Language',
+                  locale.preferred_language,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
@@ -108,18 +107,15 @@ class SetupUserViewBody extends StatelessWidget {
                       builder: (context, state) {
                         final languageCubit = LanguageCubit.of(context);
                         return CustomButton(
-                          text: 'Submit',
-                          onPressed: languageCubit.index == null ||
-                                  userNameCubit.nameController.text
-                                      .trim()
-                                      .isEmpty
-                              ? null
-                              : () {
+                          text: locale.submit,
+                          onPressed: canSubmit(languageCubit, userNameCubit)
+                              ? () {
                                   userNameCubit.cacheUserName();
                                   languageCubit.setDefaultLanguage();
                                   GoRouter.of(context)
                                       .pushReplacement(AppRouter.optionsView);
-                                },
+                                }
+                              : null,
                         );
                       },
                     );
@@ -131,5 +127,10 @@ class SetupUserViewBody extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  bool canSubmit(LanguageCubit languageCubit, UserNameCubit userNameCubit) {
+    return languageCubit.index != null ||
+        userNameCubit.nameController.text.trim().isNotEmpty;
   }
 }

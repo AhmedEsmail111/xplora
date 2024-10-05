@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:locator/locator.dart';
 import 'package:xplora/core/utils/my_consonants.dart';
@@ -17,14 +18,24 @@ class LanguageCubit extends Cubit<LanguageStates> {
           ? 1
           : 0
       : null;
+
+  Locale locale = Locale(_cacheService.getData(key: languageKey) ?? 'ar');
+
   void setDefaultLanguage() async {
-    if (index == 0 && _cacheService.getData(key: languageKey) != 'en') {
+    if (index == 0 &&
+        _cacheService.getData(key: languageKey) != 'en' &&
+        locale != const Locale('en')) {
       await _cacheService.saveData(key: languageKey, value: 'en');
+      locale = const Locale('en');
+      emit(EnglishDefaultLanguageState());
     }
-    if (index == 1 && _cacheService.getData(key: languageKey) != 'ar') {
+    if (index == 1 &&
+        _cacheService.getData(key: languageKey) != 'ar' &&
+        locale != const Locale('ar')) {
       await _cacheService.saveData(key: languageKey, value: 'ar');
+      locale = const Locale('ar');
+      emit(ArabicDefaultLanguageState());
     }
-    emit(SaveDefaultLanguageProfileStatus());
   }
 
   void changeLanguage(bool check) async {

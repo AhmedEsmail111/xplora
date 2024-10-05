@@ -19,39 +19,42 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
   var isLast = false;
   final List<BoardingPageEntity> onBoardingPagesData = [
     BoardingPageEntity(
-      title: 'Welcome to ProMinder',
+      title: 'Welcome to Xplora',
       description:
-          'Boost Your Efficiency: Manage tasks, take notes, track habits, and stay organized effortlessly.',
-      imageAsset: tasksManagementImage,
+          'Xplora is an interactive app that showcases exoplanets—planets outside our solar system—within the Milky Way galaxy through 3D models.\n It provides an engaging and easy-to-understand learning experience for users.',
+      imageAsset: onBorading1Image,
     ),
     BoardingPageEntity(
-      title: 'Pomodoro Technique',
+      title: 'Purpose of the App',
       description:
-          'Enhance Focus: Use the Pomodoro technique to work in focused intervals.',
+          'Our goal is to simplify the exploration and understanding of exoplanets for a wide audience, from beginners to astronomy enthusiasts.',
       secondLineDescription:
-          'Timed Sessions: Work for 25 minutes, then take a 5-minute break',
-      imageAsset: promodoImage,
+          'We aim to inspire the next generation of space enthusiasts and scientists by offering an innovative educational journey through the mysteries of the universe.',
+      imageAsset: onBoarding2Image,
     ),
     BoardingPageEntity(
-      title: 'Habit Tracking',
+      title: 'Key Features',
       description:
-          'Build Productive Habits: Track and maintain your daily habits.',
+          'Xplora offers 3D models of each exoplanet, allowing users to interact with and explore planets from various angles.',
       secondLineDescription:
-          'Stay Consistent: Visualize your progress and stay motivated.',
-      imageAsset: habitTrackingImage,
+          'The app provides comprehensive details about each planet, such as size, distance from Earth, and discovery history.',
+      imageAsset: onBoarding3Image,
     ),
     BoardingPageEntity(
-      title: 'Eisenhower Matrix',
+      title: ' Future Plans',
       description:
-          'Prioritize Effectively: Use the Eisenhower Matrix to prioritize your tasks.',
+          'We are working on integrating Virtual Reality (VR) into Xplora, enabling users to explore exoplanets in a more immersive and realistic manner.',
       secondLineDescription:
-          'Focus on What Matters: Separate urgent tasks from important ones',
-      imageAsset: eisenhowerImage,
+          'Future updates will include more exoplanets and galaxies, enhancing the educational experience.',
+      imageAsset: onBoarding4Image,
     ),
     BoardingPageEntity(
-      title: 'Get Started',
-      description: 'Ready to Transform Your Productivity? Let’s get started!',
-      imageAsset: achieveDreamsImage,
+      title: 'Team and Collaborators',
+      description:
+          'Xplora is brought to life by a passionate team, dedicated to making space exploration accessible to everyone.',
+      secondLineDescription:
+          'We collaborate with experts and educators to ensure the accuracy and quality of our content.',
+      imageAsset: onBoarding5Image,
     ),
   ];
   final _pageController = PageController();
@@ -81,7 +84,7 @@ class _OnBoardingViewBodyState extends State<OnBoardingViewBody> {
             children: [
               SmoothPageIndicator(
                 effect: const ExpandingDotsEffect(
-                  activeDotColor: secondaryColor,
+                  activeDotColor: brightestColor,
                   dotColor: secondaryColor,
                   dotWidth: 10,
                   dotHeight: 10,

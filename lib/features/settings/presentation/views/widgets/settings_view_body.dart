@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:xplora/features/settings/presentation/manager/language/language_cubit.dart';
@@ -19,13 +20,12 @@ class SettingsViewBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+
     return MultiBlocProvider(
       providers: [
         BlocProvider(
           create: (context) => SliderCubit(),
-        ),
-        BlocProvider(
-          create: (context) => LanguageCubit(),
         ),
         BlocProvider(
           create: (context) => UserNameCubit(),
@@ -42,7 +42,7 @@ class SettingsViewBody extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Name',
+                  locale.name,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
@@ -65,7 +65,7 @@ class SettingsViewBody extends StatelessWidget {
                   height: 16.h,
                 ),
                 Text(
-                  'Age',
+                  locale.age,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
@@ -76,7 +76,7 @@ class SettingsViewBody extends StatelessWidget {
                   height: 16.h,
                 ),
                 Text(
-                  'Your Preferred Language',
+                  locale.preferred_language,
                   style: style18ExtraBold,
                 ),
                 SizedBox(
@@ -93,17 +93,12 @@ class SettingsViewBody extends StatelessWidget {
                       builder: (context, state) {
                         final languageCubit = LanguageCubit.of(context);
                         return CustomButton(
-                          text: 'Save',
-                          onPressed: languageCubit.index == null ||
-                                  userNameCubit.nameController.text
-                                      .trim()
-                                      .isEmpty
-                              ? null
-                              : () {
-                                  userNameCubit.cacheUserName();
-                                  languageCubit.setDefaultLanguage();
-                                  GoRouter.of(context).pop();
-                                },
+                          text: locale.save,
+                          onPressed: () {
+                            userNameCubit.cacheUserName();
+                            languageCubit.setDefaultLanguage();
+                            GoRouter.of(context).pop();
+                          },
                         );
                       },
                     );
